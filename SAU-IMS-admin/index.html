@@ -3,6 +3,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>管理页面</title>
+	<!-- <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>	 -->
+	<script src="js/jquery.min.js"></script>	
+	<script type="text/javascript">
+		function hh(i){
+			alert(i);
+		}
+	</script>
+	<script type="text/javascript" src="js/createLi.js"></script>
+
 	<link rel="stylesheet" href="css/common.css">
 </head>
 <body>
@@ -12,7 +21,7 @@
 		<img src="img/无消息.png" alt="" class="ring rlt">
 		<img src="img/头像logo.png" alt="" class="userImg rlt">
 	</header>
-	<section>
+	<section class="threeBars">
 		<div class="Container rlt">
 			<nav class="leftBar fll">
 				<ul class="navigation">
@@ -35,21 +44,31 @@
 						<a href="">年度注册</a>
 					</li>
 				</ul>
-			</nav>
+			</nav><!-- leftBar -->
 			<div class="middleBar fll">
 				<div class="searchBar">
 					<form action="">
 						<input type="text" id="searchField" placeholder="搜索">
-						<img src="img/搜索logo.png" alt="magnifying mirror" class="magnifyingMirror abs">
-						<img src="img/刷新LOGO.png" alt="refresh" class="refresh abs">
+						<img src="img/搜索logo.png" alt="magnifying mirror" class="magnifyingMirror abs" title="搜索">
+						<img src="img/刷新LOGO.png" alt="refresh" class="refresh abs" title="刷新">
 					</form>
 				</div>
-			</div>
+				<div class="labelBar">
+					<div class="label">公告</div>
+					<img src="img/新建logo.png" alt="" class="new abs" title="新建公告">
+					<img src="img/删除logo.png" alt="" class="delete abs"  title="删除公告">
+				</div>
+				<div class="listContainer">
+					<ul class="announcementList" id="announcementList">
+					</ul>
+				</div>
+			</div><!-- middleBar -->
+			<div class="rightBar fll">
+			</div><!-- rightBar -->
 		</div>
 	</section>
 	<footer>
 		<p id="footer" class="rlt">&copy;2016-广金校社联</p>
 	</footer>
-	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 </body>
 </html>
