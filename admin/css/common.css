@@ -266,7 +266,7 @@ background-color: #f3f3f3;
 	margin-left: -75px;/*	overflow: hidden; 
 		text-overflow: ellipsis;*/
 }
-input[type="checkbox"i] {
+input[type="checkbox"] {
 	height: 15px;
 	width: 15px;
 	margin-top: 25px;	/*margin-right: 20px;*/
@@ -389,6 +389,10 @@ input[type="checkbox"i] {
 	border: transparent;
 	font-family: Microsoft Yahei;
 	margin-top: 10px;
+	float: right;
+  text-align: center;
+  line-height: 50px;
+  margin-right: -15px;
 }
 
 .submit:hover{

@@ -133,6 +133,10 @@
     })
   } //clearChecked
 
+
+
+
+
   /**
    * 搜索
    * @return none
@@ -195,38 +199,26 @@
       textDom.contentEditable = true;
       textDom.innerHTML = "内容";
       var btnDom = createEle("div","submit");
-      btnDomid = "submitNew";
+      btnDom.id = "submitNew";
+      btnDom.innerHTML = "发布";
       btnDom.onclick =btnClick;
       function btnClick(){
         var title = titleDom.value;
         var text = textDom.innerHTML;
-        var time = getNowFormatDate()
-        function getNowFormatDate() {
-          var date = new Date();
-          var seperator1 = "-";
-          var seperator2 = ":";
-          var month = date.getMonth() + 1;
-          var strDate = date.getDate();
-          if (month >= 1 && month <= 9) {
-              month = "0" + month;
-          }
-          if (strDate >= 0 && strDate <= 9) {
-              strDate = "0" + strDate;
-          }
-          var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-                  + " " + date.getHours() + seperator2 + date.getMinutes()
-                  + seperator2 + date.getSeconds();
-          return currentdate;
-        }
+        var time = getNowFormatDate();
         var notice = '{"title":"'+title+'","text":"'+text+'","time":"'+time+'"}';
         $.post("./index.php?c=AdminMain&a=addNotice", {"notice":notice}, function(data, status) {
           if(data){
             refresh();
+            eval("data = "+ data)            
             clearAll("rightBar");
-            createRight(srcOfHead, sender, time, title, addresee, text)
+            createRight(srcOfHead, sender, time, title, addresee, text);
+            //获取不到节点对象？？？
+            // 在回调函数内赋值全局变量，需要改为同步？？？
+            var newCheck = document.getElementById(data);
+            checkedStyle(newCheck);
           }
         })
-
       }
     addChilds(header,newAnnouncement);
     addChilds(main,titleDom,textDom,btnDom);
