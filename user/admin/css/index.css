@@ -91,22 +91,23 @@ footer {
   text-align: center;
 }
 .blo{
-  width: 100%;
+  width: 40%;
+  margin: 0 auto;
   display: block;
 }
 .des{
-  font-size: 45px;
+  font-size: 35px;
 }
 .token{
   width: 80%;
-  height: 25px;
+  height: 20px;
   margin: 0 auto;
   position: relative;
   background-color:rgba(139, 228, 232,1);
 }
 .untoken{
   width: 80%;
-  height: 25px;
+  height: 20px;
   margin: 0 auto;
   position: relative;
   background-color: inherit;

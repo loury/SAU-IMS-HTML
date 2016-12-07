@@ -2,18 +2,16 @@
       var srcOfHead = "./view/admin/img/头像logo.png";
       var sender = "校社联";
       var title = "校社联管理系统建好啦";
-      var addresee = "各位社长、成员、同学们：";
 
   var limit = '{"l":"0","r":"10"}';
   /**
    * [createList 生成目录列表元素]
    * @param  {[String]} title [description]
-   * @param  {[String]} text  [description]
    * @param  {[String]} time1 [description]
    * @param  {[int]} i     [description]
    * @return {[object]} input     [列表元素节点]
    */
-  function createList(title,text,time, i) {
+  function createList(title,time, i) {
     if(title.length>8){
       title = title.substring(0,7) + "…";
     }
@@ -49,7 +47,7 @@
       $.post("./index.php?c=AdminMain&a=getNoticeById", {"nid": i}, function(data, status) {
         clearAll("rightBar");
         eval("data = " + data);
-        createRight(srcOfHead, data['name'], data['time'], data['title'], addresee, data['text'])
+        createRight(srcOfHead, data['name'], data['time'], data['title'],data['text'],data['id'])
       })
       checkedStyle(this);
     }
@@ -62,11 +60,10 @@
    * @param  {[String]} sender    [公告发布者]
    * @param  {[String]} time      [发布时间]
    * @param  {[String]} title     [公告题目]
-   * @param  {[String]} addresee  [公告接受者]
    * @param  {[String]} text      [正文]
    * @return {[none]}           [description]
    */
-  function createRight(srcOfHead, sender, time, title, addresee, text) {
+  function createRight(srcOfHead, sender, time, title, text,id) {
     var rightBar = document.getElementById("rightBar");
     var header = createEle("header", "mainHeader");
     var userHead = createEle("img", "userHead", "fll");
@@ -81,8 +78,12 @@
     var mainDelete = createEle("img", "mainDelete");
     mainDelete.src = "./view/admin/img/删除logo.png";
     mainDelete.alt = "删除";
+    mainDelete.Data = id;
+    mainDelete.onclick = deleteSingle;
     var deleteText = createEle("span", "deleteText", "rlt");
     deleteText.innerHTML = "删除";
+    deleteText.Data = id;
+    deleteText.onclick = deleteSingle;
     addChilds(deleteButton, mainDelete, deleteText);
     addChilds(header, userHead, mainSender, mainTime, deleteButton);
 
@@ -90,15 +91,22 @@
     var mainTitle = createEle("h3", "mainTitle");
     mainTitle.innerHTML = title;
     var mainContent = createEle("div", "mainContent");
-    var towho = createEle("p", "toWho");
-    towho.innerHTML = addresee;
     var ti2 = createEle("p", "ti2");
     ti2.innerHTML = text;
-    addChilds(mainContent, towho, ti2);
+    addChilds(mainContent, ti2);
     addChilds(main, mainTitle, mainContent);
     addChilds(rightBar, header, main);
   }
 
+  function deleteSingle(){
+    var ID =this.Data;
+    var deleteId = '{"id":"'+ID+'"}';
+    $.post("./index.php?c=AdminMain&a=deleteNotices", {"noticeIds":deleteId}, function(data, status) {
+      if (data == "true") {
+        refresh();
+      } //if
+    })
+  }
 
   /**
    * [clearChecked 删除选中的列表项]
@@ -152,10 +160,20 @@
           if(data.length != 0){
             var len = data.length;
             for (var i = 0; i < len; i++) {
-              createList(data[i]['title'], data[i]['text'], data[i]['time'], i);
+              createList(data[i]['title'], data[i]['time'], data[i]['id']);
             }
+            var firstId = data[0]['id']; 
+            var firstDom = document.getElementById(firstId);
+            checkedStyle(firstDom);
+            //生成正文内容
+            $.post("./index.php?c=AdminMain&a=getNoticeById", {"nid": firstId}, function(data) {
+              eval("data = " + data);
+              clearAll("rightBar");
+              createRight(srcOfHead, data['name'], data['time'], data['title'], data['text'],data['id']);
+            })
           }
           else{
+            clearAll("rightBar");
             alert('查找不到与"'+val+'"有关的公告');
           }
         }
@@ -176,8 +194,17 @@
         eval("data =" + data);
         var len = data.length
         for (var i = 0; i < len; i++) {
-          createList(data[i]['title'], data[i]['text'], data[i]['time'], data[i]['id']);
+          createList(data[i]['title'], data[i]['time'], data[i]['id']);
         }
+        var firstId = data[0]['id']; 
+        var firstDom = document.getElementById(firstId);
+        checkedStyle(firstDom);
+        //生成正文内容
+        $.post("./index.php?c=AdminMain&a=getNoticeById", {"nid": firstId}, function(data) {
+          eval("data = " + data);
+          clearAll("rightBar");
+          createRight(srcOfHead, data['name'], data['time'], data['title'], data['text'],data['id']);
+        })
       }
     })
   }
@@ -210,13 +237,6 @@
         $.post("./index.php?c=AdminMain&a=addNotice", {"notice":notice}, function(data, status) {
           if(data){
             refresh();
-            eval("data = "+ data)            
-            clearAll("rightBar");
-            createRight(srcOfHead, sender, time, title, addresee, text);
-            //获取不到节点对象？？？
-            // 在回调函数内赋值全局变量，需要改为同步？？？
-            var newCheck = document.getElementById(data);
-            checkedStyle(newCheck);
           }
         })
       }
@@ -224,7 +244,4 @@
     addChilds(main,titleDom,textDom,btnDom);
     addChilds(boxDom,header,main);
     
-
-    
-      // $.post("text.php",)
   }
