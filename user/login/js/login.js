@@ -1,4 +1,3 @@
-
 //   function login() {//登录，post函数
 //   var xmlhttp;
 //   var userName = document.getElementById("lo_username");
@@ -32,28 +31,36 @@
 //   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 //   xmlhttp.send("userName=" + userName.value + "&password=" + password.value);
 // }
-$(function(){
-//登录
-// document.getElementById("button").onclick=login;
+$(function() {
+  //登录
+  // document.getElementById("button").onclick=login;
 
-$("#clearName").click(function(){
-  $("#loUsername").val("");
-})
-$("#clearPwd").click(function(){
-  $("#loPwd").val("");
-})
+  // 清除对应输入框的内容
+  $("#clearName").click(function() {
+    $("#loUsername").val("");
+  })
+  $("#clearPwd").click(function() {
+    $("#loPwd").val("");
+  })
+  $("#clearVerification").click(function() {
+    $("#loVerification").val("");
+  });
 
-$("#showPwd").click(function(){
-  var pwdType = document.getElementById("loPwd").type;
-  if(pwdType == "password"){
-    document.getElementById("loPwd").type = "text";
-    document.getElementById("showPwd").src = "img/睁眼logo.png";
-  }
-  else{
-    document.getElementById("loPwd").type = "password";
-    document.getElementById("showPwd").src = "img/闭眼logo.png";
-  }
-})
+  // 控制明文密码的显示与隐藏
+  $("#showPwd").click(function() {
+    var pwdType = document.getElementById("loPwd").type;
+    if (pwdType == "password") {
+      document.getElementById("loPwd").type = "text";
+      document.getElementById("showPwd").src = "img/睁眼logo.png";
+    } else {
+      document.getElementById("loPwd").type = "password";
+      document.getElementById("showPwd").src = "img/闭眼logo.png";
+    }
+  });
+
+  // 点击更换验证码
+  $("#changeVerification").click(function(){
+    $("#changeVerification").src = "code.php?t="+Math.random(); //增加一个随机参数，防止图片缓存
+  })
 
 })
-
