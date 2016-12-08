@@ -76,3 +76,14 @@
             + seperator2 + date.getSeconds();
     return currentdate;
   }
+
+  function escape(str){
+    str=str.replace(/"/g,"&quot;");
+    str=str.replace(/'/g,"&#39;");
+    str=str.replace(/\\/g,"&#47;");
+    return str;
+  }
+
+  ////////
+  // 新增 escape函数（最后一个） //
+  ////////

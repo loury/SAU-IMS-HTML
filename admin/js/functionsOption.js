@@ -151,6 +151,7 @@
    */
   function search() {
     var val = $("#searchField").val();
+    val = escape(val);
     if(val){
       var search = '{"title":"' + val + '","l":"0","r":"10"}';
       $.post("./index.php?c=AdminMain&a=searchNotices", {"search": search}, function(data, status) {
@@ -231,7 +232,9 @@
       btnDom.onclick =btnClick;
       function btnClick(){
         var title = titleDom.value;
+        title =escape(title);
         var text = textDom.innerHTML;
+        text = escape(text);
         var time = getNowFormatDate();
         var notice = '{"title":"'+title+'","text":"'+text+'","time":"'+time+'"}';
         $.post("./index.php?c=AdminMain&a=addNotice", {"notice":notice}, function(data, status) {
@@ -243,5 +246,7 @@
     addChilds(header,newAnnouncement);
     addChilds(main,titleDom,textDom,btnDom);
     addChilds(boxDom,header,main);
-    
+    ////////
+    // 新增第154,235,237行的代码 //
+    ////////
   }
