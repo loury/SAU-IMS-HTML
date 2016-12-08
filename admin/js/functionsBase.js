@@ -80,7 +80,7 @@
   function escape(str){
     str=str.replace(/"/g,"&quot;");
     str=str.replace(/'/g,"&#39;");
-    str=str.replace(/\\/g,"&#47;");
+    str=str.replace(/\\/g,"&#92;");
     return str;
   }
 

@@ -41,7 +41,7 @@
     function Events() {
       var tokenD = document.getElementById("token"+this.id);
       if(tokenD.className=="untoken"){
-        tokenD.className == "token";
+        tokenD.className = "token";
         $.POST();
       }
       $.post("./index.php?c=AdminMain&a=getNoticeById", {"nid": i}, function(data, status) {
@@ -151,9 +151,9 @@
    */
   function search() {
     var val = $("#searchField").val();
-    val = escape(val);
-    if(val){
-      var search = '{"title":"' + val + '","l":"0","r":"10"}';
+    valE = escape(val);
+    if(valE){
+      var search = '{"title":"' + valE + '","l":"0","r":"10"}';
       $.post("./index.php?c=AdminMain&a=searchNotices", {"search": search}, function(data, status) {
         if (data != "flase") {
           clearAll("announcementList");
@@ -247,6 +247,6 @@
     addChilds(main,titleDom,textDom,btnDom);
     addChilds(boxDom,header,main);
     ////////
-    // 新增第154,235,237行的代码 //
+    // 新增第154-156,235,237行的代码 //
     ////////
   }
