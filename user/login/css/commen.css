@@ -52,6 +52,7 @@ main {
   float: right;
   margin-top: 55px;
   margin-right: 30px;
+  display: none;
 }
 .lo_txt input {
   height: 158px;

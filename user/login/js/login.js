@@ -1,36 +1,4 @@
-//   function login() {//登录，post函数
-//   var xmlhttp;
-//   var userName = document.getElementById("lo_username");
-//   var password = document.getElementById("loPwd");
 
-//   // if (userName.value == "" || password.value == "") {
-//   //   document.getElementById("tips").innerHTML = "账号或密码不能为空";
-//   //   return;
-//   // }
-
-//   if (window.XMLHttpRequest) {
-//       xmlhttp = new XMLHttpRequest();
-//   } else {
-//       xmlhttp = new ActiveXObject();
-//   }
-
-//   xmlhttp.onreadystatechange = function () {
-//     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-//       var json = xmlhttp.responseText;
-//       var login = eval("("+json+")");
-//       if(login.success){
-//         checked();
-//         location.href=login.url;
-//       }else{
-//         password.value="";
-//         document.getElementById("tips").innerHTML=login.message;
-//       }
-//     }
-//   }
-//   xmlhttp.open("POST", "./index.php?c=LoginAdmin", true);
-//   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//   xmlhttp.send("userName=" + userName.value + "&password=" + password.value);
-// }
 $(function() {
   //登录
   // document.getElementById("button").onclick=login;
@@ -38,12 +6,21 @@ $(function() {
   // 清除对应输入框的内容
   $("#clearName").click(function() {
     $("#loUsername").val("");
+    $("#clearName").css({
+      "display": "none"
+    })
   })
   $("#clearPwd").click(function() {
     $("#loPwd").val("");
+    $("#clearPwd").css({
+        "display": "none"
+      })
   })
   $("#clearVerification").click(function() {
     $("#loVerification").val("");
+    $("#clearVerification").css({
+        "display": "none"
+      })
   });
 
   // 控制明文密码的显示与隐藏
@@ -58,9 +35,50 @@ $(function() {
     }
   });
 
-  // 点击更换验证码
+  // 控制清除图标的显示与隐藏
+  $('#loUsername').bind('input propertychange', function() {
+    if ($('#loUsername').val() != "") {
+      $("#clearName").css({
+        "display": "block"
+      })
+    } else {
+      $("#clearName").css({
+        "display": "none"
+      })
+    }
+  });
+  $('#loPwd').bind('input propertychange', function() {
+    if ($('#loPwd').val() != "") {
+      $("#clearPwd").css({
+        "display": "block"
+      })
+    } else {
+      $("#clearPwd").css({
+        "display": "none"
+      })
+    }
+  });
+  $('#loVerification').bind('input propertychange', function() {
+    if ($('#loVerification').val() != "") {
+      $("#clearVerification").css({
+        "display": "block"
+      })
+    } else {
+      $("#clearVerification").css({
+        "display": "none"
+      })
+    }
+  });
+  
+/*以上是正常登录操作*/
+
+  // 点击更换验证码,没成功？？？
   $("#changeVerification").click(function(){
+    // alert("djididi")
     $("#changeVerification").src = "code.php?t="+Math.random(); //增加一个随机参数，防止图片缓存
   })
 
 })
+  /////////////////////////////////////
+  // 新增 9-11,15-17,21-23，38-71行的代码// //
+  ///////////////////////////////////////
